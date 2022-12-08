@@ -108,12 +108,9 @@
 }
 
 body {
- background-image: linear-gradient(
-  40deg,
-  hsl(256deg 66% 55%) 0%,
-  hsl(238deg 53% 55%) 50%,
-  hsl(227deg 45% 49%) 100%
-);
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+
 }
 
 .assignment-links {
