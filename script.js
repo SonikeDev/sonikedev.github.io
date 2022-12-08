@@ -8,6 +8,6 @@ function passcheck() {
 	}
 
 	if (document.getElementById('lærer2349').value == password) {
-		alert('Passcode correct, press OK to proceed.');
+		alert('Passcode correct, press OK to proceed. (Please not that it may take a few minutes to publish new assignments.)');
 	}
 }
