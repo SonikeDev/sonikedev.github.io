@@ -232,7 +232,6 @@ color: white;
   touch-action: manipulation;
   margin: 50px;
   margin-top: 60px;
-  display: none;
 }
 
 .alert:hover {
