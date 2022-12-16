@@ -47,7 +47,7 @@ img {
 }
 
 body {
-  animation: transitionIn 0.75s;
+  animation: transitionIn 1s;
 }
 
 .welcome-text {
