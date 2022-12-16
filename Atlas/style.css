@@ -1,0 +1,145 @@
+body {
+  background-color: #193467;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar container */
+.navbar {
+  overflow: hidden;
+  background-color: #0a1a39;
+  border-radius: 8px;
+}
+
+/* Links inside the navbar */
+.navbar a, img {
+  float: left;
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 14px 16px;
+}
+
+/* when hover */
+.navbar a:hover {
+  background-color: #1e4080;
+}
+
+
+img {
+  width: 32px;
+  height: 32px;
+  padding: 16px;
+}
+
+/* Transition */
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+    transform: rotateX(-10deg);
+
+  }
+
+  to {
+    opacity: 1;
+    transform: rotateX(0);
+  }
+}
+
+body {
+  animation: transitionIn 1.2s;
+}
+
+.welcome-text {
+  color: white;
+  text-align: center;
+  font-size: 24px;
+}
+
+.welcome-line {
+  border: 1px solid #1e4080;
+  border-radius: 1px;
+}
+
+
+/* Scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1e4080;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0f2d69;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f2653;
+}
+
+/* <prosody rate="slow">Børnene legede med bolden</prosody> <break time="1s"/> <prosody rate="slow">legede</prosody> */
+
+/* Navbar container */
+
+
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 24px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */  
+}
+
+/* Add a red background color to navbar links on hover */
+.dropdown:hover .dropbtn {
+  background-color: #1e4080;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0f2653;
+  min-width: 160px;
+  z-index: 1;
+  margin-top: 1px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #0f2d69;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
