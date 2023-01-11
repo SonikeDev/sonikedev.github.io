@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="theme" rel="stylesheet" type="text/css" href="light-style.css" />
+    <script src="https://kit.fontawesome.com/796d323ea1.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <title>Resources</title>
+</head>
+<body>
+<script> 
+    function toggleTheme() { 
+        // Obtains an array of all <link> 
+        // elements. 
+        // Select your element using indexing. 
+        var theme = document.getElementsByTagName('link')[0]; 
+   
+        // Change the value of href attribute  
+        // to change the css sheet. 
+        if (theme.getAttribute('href') == 'light-style.css') { 
+            theme.setAttribute('href', 'dark-style.css');
+        } else { 
+            theme.setAttribute('href', 'light-style.css'); 
+        } 
+    } 
+   </script>
+
+   <div class="themeSwitch">
+
+
+    <input type="checkbox" onclick="toggleTheme()">
+   </div>
+
+
+    <div class="container">
+        <div class="card">
+            
+            <div class="card-header">
+                <img src="assets/aborigines/aborigines4.png" alt="rover" />
+            </div>
+            <div class="card-body">
+                <span class="tag tag-green">engelsk</span>
+                <h3>
+                    Aborigines
+                </h3>
+                <span>
+                    Facts about Aborigines 
+                </span>
+                
+                <a href="https://docs.google.com/document/d/1-G3j-lR8rTcCJdIf3ep5qJLjvLjr5Cd3FrX2PKn2EHA/edit?usp=sharing" target="_blank" class="learn-more"><i class="fa-regular fa-file"></i>&nbsp View</a>
+                
+                <div class="user">
+                    <img src="assets/icons/apieceofcake.png"
+                        alt="user" />
+                    <div class="user-info">
+                        <h5>A Piece of Cake</h5>
+                        <small>10/01/23</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="../index.html" class="info-text"><h5><i class="fas fa-chevron-left"></i>&nbsp Hub</h5></a>
+    </body>
+</html>
