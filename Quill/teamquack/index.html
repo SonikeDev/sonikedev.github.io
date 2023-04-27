@@ -109,7 +109,6 @@
     <a href="#"></a>
 </body>
 <script>
-    let isLoggedIn = false;
     const password = "2011";
     const username = localStorage.getItem("username");
     if (username === null) {
@@ -144,6 +143,14 @@
             if (message === "" || username === "") {
                 return;
             }
+      
+            let lengthMessage = message
+            let length = message.length
+
+            if (length > 100) {
+                return;
+            }
+
             db.ref("messages/" + timestamp).set({
                 usr: username,
                 msg: message,
