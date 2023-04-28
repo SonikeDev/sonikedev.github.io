@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quill - Team Quack | Update 2</title>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="script.js"></script>
+</head>
+<style>
+    ul {
+        list-style: none;
+    }
+
+    body,
+    html {
+        background-color: #fafafafa;
+        width: 100%;
+        height: 100vh;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+
+    ::-webkit-scrollbar {
+        width: 15px;
+        background-color: #fafafafa;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #fafafafa
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border: 4px solid #fafafafa;
+        -webkit-border-radius: 5px;
+        border-radius: 8px
+    }
+
+    ::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 8px;
+        border-radius: 8px
+    }
+
+    #chat {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    #messages {
+        margin-bottom: calc(45px + 60px);
+        margin-top: 16px;
+        width: 30%;
+    }
+
+    #chat-txt {
+        position: absolute;
+        bottom: 0;
+        left: 25%;
+        width: 50%;
+        margin: auto;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #555;
+        outline: none;
+        margin: 16px;
+    }
+
+    h1 {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 20px;
+        font-size: 2rem;
+    }
+
+    a#messageLink {
+        color: #6f90c5;
+    }
+
+    #updateBtn {
+        background-color: #5865f2;
+        color: #fff;
+        border: none;
+        padding: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin: 16px;
+        position: absolute;
+        top: 0;
+        transition: background-color .25s ease-in;
+    }
+
+    #updateBtn:hover {
+        background-color: #7982e6;
+    }
+
+    ol {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        background-color: #5865f2;
+        color: #fff;
+        list-style: none;
+        padding: 8px;
+        border-radius: 6px;
+    }
+
+    p {
+        position: absolute;
+        bottom: 16px;
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+</style>
+
+<body>
+    <div id="chat">
+        <ul id="messages">
+            <li>
+                <h1>Team Quack - Update 2</h1>
+                <ol>
+                    <li>Links are now clickable.</li>
+                    <li>100 character limit per message.</li>
+                    <li>Notifications.</li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+    <p>Hver gruppe har deres egne præferencer. Så hvis du en har ting du vil have tilføjet, så skriv til mig!</p>
+</body>
+
+</html>
