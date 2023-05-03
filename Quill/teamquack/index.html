@@ -115,6 +115,27 @@
     const usersRef = firebase.database().ref("users");
     const currentUserRef = usersRef.child(localStorage.getItem("username"));
 
+    // Request permission for notifications
+    Notification.requestPermission();
+
+    onlineUsersRef.on("value", function (snapshot) {
+        if (snapshot.val()) {
+            currentUserRef.onDisconnect().remove();
+            currentUserRef.set(true);
+        }
+    });
+
+    usersRef.on("value", function (snapshot) {
+        let onlineUsers = "";
+        snapshot.forEach(function (childSnapshot) {
+            const user = childSnapshot.key;
+            if (user !== localStorage.getItem("username") && childSnapshot.val()) {
+                onlineUsers += user + ", ";
+            }
+        });
+        document.getElementById("online-users").textContent = onlineUsers.slice(0, -2);
+    });
+
     const password = "2011";
     const username = localStorage.getItem("username");
     if (username === null) {
@@ -141,6 +162,7 @@
     if (isLoggedIn) {
         const postChat = function (e) {
             e.preventDefault();
+            const timestamp = Date.now();
             const chatTxt = document.getElementById("chat-txt");
             let message = chatTxt.value.trim();
             const nameTxt = localStorage.getItem("username");
@@ -156,21 +178,43 @@
                 return;
             }
 
+            // detect links and replace with anchor tags
             const urlRegex = /(https?:\/\/[^\s]+)/g;
             message = message.replace(urlRegex, '<a href="$1" target="_blank" id="messageLink" tabindex="-1">$1</a>');
 
+            db.ref("messages/" + timestamp).set({
+                usr: username,
+                msg: message,
+            });
             chatTxt.value = "";
             scrollBottom();
+
+            // Show a notification if user is not on the website
+            if (document.visibilityState === "hidden" && Notification.permission === "granted") {
+                const notification = new Notification("New message received", {
+                    body: message,
+                });
+            }
         };
 
         document.getElementById("send-message").addEventListener("submit", postChat);
 
         const messagesList = document.getElementById("messages");
         const fetchChat = db.ref("messages/");
-        const msg = "<li>" + "<strong>" + messages.usr + "</strong>" + "<strong>:</strong> " + messages.msg + "</li>";
-        messagesList.innerHTML += msg;
-        messagesList.scrollTop = messagesList.scrollHeight;
-        scrollBottom();
+        fetchChat.on("child_added", function (snapshot) {
+            const messages = snapshot.val();
+            const msg = "<li>" + "<strong>" + messages.usr + "</strong>" + "<strong>:</strong> " + messages.msg + "</li>";
+            messagesList.innerHTML += msg;
+            messagesList.scrollTop = messagesList.scrollHeight;
+            scrollBottom();
+
+            // Show a notification if user is not on the website
+            if (document.visibilityState === "hidden" && Notification.permission === "granted") {
+                const notification = new Notification("New message received", {
+                    body: messages.msg,
+                });
+            }
+        });
     }
 </script>
 
