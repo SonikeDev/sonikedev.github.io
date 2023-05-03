@@ -115,24 +115,6 @@
     const usersRef = firebase.database().ref("users");
     const currentUserRef = usersRef.child(localStorage.getItem("username"));
 
-    onlineUsersRef.on("value", function (snapshot) {
-        if (snapshot.val()) {
-            currentUserRef.onDisconnect().remove();
-            currentUserRef.set(true);
-        }
-    });
-
-    usersRef.on("value", function (snapshot) {
-        let onlineUsers = "";
-        snapshot.forEach(function (childSnapshot) {
-            const user = childSnapshot.key;
-            if (user !== localStorage.getItem("username") && childSnapshot.val()) {
-                onlineUsers += user + ", ";
-            }
-        });
-        document.getElementById("online-users").textContent = onlineUsers.slice(0, -2);
-    });
-
     const password = "2011";
     const username = localStorage.getItem("username");
     if (username === null) {
@@ -174,7 +156,6 @@
                 return;
             }
 
-            // detect links and replace with anchor tags
             const urlRegex = /(https?:\/\/[^\s]+)/g;
             message = message.replace(urlRegex, '<a href="$1" target="_blank" id="messageLink" tabindex="-1">$1</a>');
 
@@ -186,13 +167,10 @@
 
         const messagesList = document.getElementById("messages");
         const fetchChat = db.ref("messages/");
-        fetchChat.on("child_added", function (snapshot) {
-            const messages = snapshot.val();
-            const msg = "<li>" + "<strong>" + messages.usr + "</strong>" + "<strong>:</strong> " + messages.msg + "</li>";
-            messagesList.innerHTML += msg;
-            messagesList.scrollTop = messagesList.scrollHeight;
-            scrollBottom();
-        });
+        const msg = "<li>" + "<strong>" + messages.usr + "</strong>" + "<strong>:</strong> " + messages.msg + "</li>";
+        messagesList.innerHTML += msg;
+        messagesList.scrollTop = messagesList.scrollHeight;
+        scrollBottom();
     }
 </script>
 
