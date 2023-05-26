@@ -137,10 +137,7 @@
     });
 
     const password = "2011";
-    const guest_password = "A123";
     const username = localStorage.getItem("username");
-    let isLoggedIn = false;
-
     if (username === null) {
         const name = prompt("What's your name?");
         localStorage.setItem("username", name);
@@ -152,14 +149,14 @@
 
     const checkLogin = function () {
         const enteredPassword = prompt("Enter the password to view the chat");
-        if (enteredPassword === password || enteredPassword === guest_password) {
+        if (enteredPassword === password) {
             isLoggedIn = true;
         } else {
             alert("Wrong password. Please try again.");
             checkLogin();
         }
     };
-    
+
     checkLogin();
 
     if (isLoggedIn) {
@@ -177,7 +174,7 @@
             let lengthMessage = message;
             let length = message.length;
 
-            if (length > 2500) {
+            if (length > 200) {
                 return;
             }
 
