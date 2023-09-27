@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>[REDACTED] - Kontakt</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Source Code Pro', monospace;
+        background-color: #000;
+        color: #fff;
+        overflow: hidden;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    .container button {
+        border: 0;
+        padding: 8px 10px;
+        background: #fff;
+        font-family: 'Source Code Pro', monospace;
+        font-weight: 600;
+        margin-top: 16px;
+        cursor: pointer;
+    }
+
+    .container button:hover {
+        background: #000;
+        color: #fff;
+        border: #fff 1px solid;
+    }
+
+    .container form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .title {
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    .title p {
+        font-style: italic;
+    }
+
+    .back-btn {
+        border: 0;
+        padding: 8px 10px;
+        background: #fff;
+        font-family: 'Source Code Pro', monospace;
+        font-weight: 600;
+        cursor: pointer;
+        position: absolute;
+        margin: 32px 48px;
+    }
+
+    .back-btn:hover {
+        background: #000;
+        color: #fff;
+        border: #fff 1px solid;
+    }
+
+    input {
+        background: #fff;
+        border: 0;
+        padding: 8px 10px;
+        font-family: 'Source Code Pro', monospace;
+        margin-top: 4px;
+        font-weight: 600;
+    }
+</style>
+
+<body>
+    <a href="/index.html"><button class="back-btn"><i class="fas fa-arrow-left"></i> Gå tilbage</button></a>
+    <div class="container">
+        <div class="title">
+            <h1>Kontakt os her</h1>
+            <p>Husk at vores metoder virker ikke 100% af gangene.</p>
+        </div>
+        <form action="https://formspree.io/f/mbjvzvoq" method="POST">
+            <label for="name">Hvad er dit unilogin?</label>
+            <input type="email" id="name" required name="attacker">
+            <br>
+            <label for="victim">Hvis kode skal du have?</label>
+            <p style="font-style: italic;font-size: 14px;">De skal gå på skolen</p>
+            <input type="text" required name="victim">
+            <button type="submit"><i class="fas fa-arrow-right" style="font-size: 18px;"></i></button>
+        </form>
+    </div>
+</body>
+
+</html>
