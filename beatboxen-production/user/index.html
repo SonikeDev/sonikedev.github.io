@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Beatboxen - Profil</title>
+</head>
+
+<body>
+    <div class="container">
+        <img src="#" class="profile-picture">
+        <p class="username"></p>
+        <p class="bio"></p>
+        <p class="role"></p>
+    </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyC4iaUZNuXO9Jml9LjqAYiuMZ6NZmHP_3g",
+        authDomain: "beatboxenmusik.firebaseapp.com",
+        projectId: "beatboxenmusik",
+        storageBucket: "beatboxenmusik.appspot.com",
+        messagingSenderId: "133861428374",
+        appId: "1:133861428374:web:b2c49ebcd87c719f9a46b7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+
+    function fetchUserProfile(uid) {
+        const userDocRef = db.collection('users').doc(uid);
+
+        userDocRef.get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    console.log("User Data:", userData);
+                    console.log(userData.profilePicture);
+                    console.log(userData.username);
+                    console.log(userData.bio);
+                    console.log(userData.role);
+                    $(".profile-picture").attr("src", userData.profilePicture);
+                    $(".username").text(userData.username);
+                    $(".bio").text(userData.bio);
+                    $(".role").text(userData.role);
+                } else {
+                    console.log("No such document!");
+                }
+            })
+            .catch((error) => {
+                console.error("Error getting document:", error);
+            });
+    }
+
+    // Get user UID from the URL
+    const queryString = window.location.search;
+    const uidIndex = queryString.indexOf('?') + 1;
+    const userUID = uidIndex > 0 ? queryString.slice(uidIndex) : null;
+
+    if (userUID) {
+        fetchUserProfile(userUID);
+    } else {
+        console.log("No user UID found in the URL.");
+    }
+</script>
+
+</html>

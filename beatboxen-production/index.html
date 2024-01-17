@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Beatboxen</title>
+</head>
+
+<body>
+    <nav>
+        <img src="assets/logo.png" width="32px" style="user-select: none;-webkit-user-drag: none;">
+        <ul>
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="#">Bibliotek</a></li>
+            <li><a href="#">Favoritter</a></li>
+        </ul>
+        <div class="rightside">
+            <div class="search-container">
+                <input type="text" id="searchBar" placeholder="Søg efter en sang">
+            </div>
+            <button id="profilebtn">
+                <img src="#" class="profilepicture">
+            </button>
+        </div>
+    </nav>
+    <div class="dropdown">
+        <button id="userprofile-btn">Din profil</button>
+        <button id="settings-btn">Indstillinger</button>
+        <button id="suggestasong-btn">Foreslå en sang</button>
+        <button onclick="logOut()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log ud</button>
+    </div>
+    <div class="container">
+        <div class="recently-added">
+            <p class="title">Tilføjet for nyligt</p>
+            <div id="recentSongsContainer"></div>
+        </div>
+    </div>
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <button class="close"><i class="fas fa-close"></i></button>
+            <div class="user-info">
+                <img id="modalProfilePicture">
+                <p id="modalUsername"></p>
+            </div>
+            <div class="settings">
+                <div class="settings-content">
+                    <label class="settings-switches">
+                        Notifikationer
+                        <input type="checkbox" class="input" id="notificationCheckbox">
+                        <span class="custom-checkbox"></span>
+                    </label>
+                    <label class="settings-switches" style="border-top: #ffffff1a 1px solid;padding-top: 16px;">
+                        Playlister
+                        <input type="checkbox" class="input" disabled="true">
+                        <span class="custom-checkbox"></span>
+                        <span id="beta">BETA</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyC4iaUZNuXO9Jml9LjqAYiuMZ6NZmHP_3g",
+        authDomain: "beatboxenmusik.firebaseapp.com",
+        projectId: "beatboxenmusik",
+        storageBucket: "beatboxenmusik.appspot.com",
+        messagingSenderId: "133861428374",
+        appId: "1:133861428374:web:b2c49ebcd87c719f9a46b7"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function logOut() {
+        firebase.auth().signOut().then(() => {
+            console.log("User signed out");
+            window.location.href = "/login";
+        }).catch((error) => {
+            console.error(error.message);
+        });
+    }
+
+    $(document).ready(function () {
+        firebase.auth().onAuthStateChanged(function (authUser) {
+            if (authUser) {
+                console.log("User is signed in");
+                $(".profilepicture").attr("src", authUser.photoURL);
+                console.log(authUser.displayName);
+                user = authUser;
+            } else {
+                window.location.href = "/login";
+            }
+        });
+
+        $("#userprofile-btn").on("click", function () {
+            if (user) {
+                window.location.href = `/user/?${user.uid}`;
+            }
+        });
+
+        var dropdown = $(".dropdown");
+
+        $("#profilebtn").on("click", function (e) {
+            e.stopPropagation();
+            toggleDropdown();
+        });
+
+        $("#suggestasong-btn").on("click", function (e) {
+            window.open(
+                'https://ya0r3xjr5yr.typeform.com/to/DaN6WOwT',
+                '_blank'
+            );
+        });
+
+        $(document).on("click", function (e) {
+            if (!$(e.target).closest(".dropdown").length) {
+                dropdown.css('display', 'none');
+            }
+        });
+
+        function toggleDropdown() {
+            if (dropdown.css('display') === 'flex') {
+                dropdown.css('display', 'none');
+            } else {
+                dropdown.css('display', 'flex');
+            }
+        }
+    });
+
+    $("#settings-btn").on("click", function (e) {
+        e.stopPropagation();
+        toggleSettingsModal();
+        $(".dropdown").css('display', 'none');
+    });
+
+    $(".close").on("click", function () {
+        toggleSettingsModal();
+    });
+
+    function toggleSettingsModal() {
+        const modal = $("#settingsModal");
+        modal.toggle();
+
+        if (modal.is(":visible")) {
+            const user = firebase.auth().currentUser;
+            $("#modalProfilePicture").attr("src", user.photoURL);
+            $("#modalUsername").text(user.displayName);
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const notificationCheckbox = document.getElementById("notificationCheckbox");
+
+        const savedState = localStorage.getItem("notificationCheckboxState");
+        if (savedState) {
+            notificationCheckbox.checked = JSON.parse(savedState);
+        }
+
+        notificationCheckbox.addEventListener("change", function () {
+            localStorage.setItem("notificationCheckboxState", notificationCheckbox.checked);
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const recentSongsContainer = document.getElementById("recentSongsContainer");
+
+        function renderSongCard(song) {
+            const card = document.createElement("div");
+            card.classList.add("recent-song-card");
+
+            const image = document.createElement('img');
+            image.src = song.photoURL;
+            image.alt = 'Song Photo';
+            image.classList.add('song-image');
+
+            const contentWrapper = document.createElement("div");
+            contentWrapper.classList.add("content-wrapper");
+
+            const title = document.createElement("p");
+            title.classList.add("song-title");
+            title.textContent = song.title;
+
+            const artist = document.createElement("p");
+            artist.classList.add("artist-name");
+            artist.textContent = song.artist;
+
+            const playButton = document.createElement("button");
+            playButton.classList.add("play-button");
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
+
+            contentWrapper.appendChild(title);
+            contentWrapper.appendChild(artist);
+            card.appendChild(image);
+            card.appendChild(contentWrapper);
+            card.appendChild(playButton);
+
+            recentSongsContainer.appendChild(card);
+        }
+
+        function fetchRecentSongs() {
+            db.collection("songs")
+                .orderBy("timestamp", "desc")
+                .limit(5)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        const songData = doc.data();
+                        renderSongCard(songData);
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error getting recent songs: ", error);
+                });
+        }
+
+        fetchRecentSongs();
+    });
+</script>
+
+</html>

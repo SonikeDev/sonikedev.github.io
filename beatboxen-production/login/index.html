@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Beatboxen - Log ind</title>
+</head>
+
+<body>
+    <div class="container">
+        <img src="/assets/logo2.png" width="512px" style="user-select: none;-webkit-user-drag: none;">
+        <button onclick="signInWithGoogle()">Log ind med<i class="fab fa-google"></i></button>
+    </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyC4iaUZNuXO9Jml9LjqAYiuMZ6NZmHP_3g",
+        authDomain: "beatboxenmusik.firebaseapp.com",
+        projectId: "beatboxenmusik",
+        storageBucket: "beatboxenmusik.appspot.com",
+        messagingSenderId: "133861428374",
+        appId: "1:133861428374:web:b2c49ebcd87c719f9a46b7"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            console.log("User Object:", user);
+            console.log("Username: ", user.displayName);
+            console.log("Email: ", user.email);
+            console.log("Profile Picture: ", user.photoURL);
+
+            const userDocRef = db.collection('users').doc(user.uid);
+            userDocRef.set({
+                username: user.displayName,
+                profilePicture: user.photoURL,
+                bio: "Ingen bio endnu :(",
+                favoriteSongs: [],
+                role: "user"
+            })
+                .then(() => {
+                    console.log("User document created successfully");
+                    window.location.href = "../index.html";
+                })
+                .catch((error) => {
+                    console.error("Error creating user document: ", error);
+                });
+        } else {
+            console.log("No user signed in");
+        }
+    });
+
+    function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+            .catch((error) => {
+                console.error(error.message);
+            });
+    }
+</script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body,
+    html {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Rubik', sans-serif;
+        height: 100%;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1em;
+        height: 100%;
+    }
+
+    button {
+        all: unset;
+        cursor: pointer;
+        padding: 12px;
+        border-radius: 4px;
+        transition: background-color .15s ease;
+        outline: none;
+        background-color: #7c7c7c1a;
+        border: #ffffff1a 1px solid;
+    }
+
+    button:hover {
+        background-color: #ffffff1a;
+    }
+
+    button i {
+        margin-left: 6px;
+    }
+</style>
+
+</html>

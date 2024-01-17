@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Rubik', sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px;
+}
+
+button {
+    all: unset;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 4px;
+    transition: background-color .15s ease;
+}
+
+button:hover {
+    background-color: #ffffff1a;
+}
+
+button,
+a {
+    outline: none;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 2em;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color .25s ease;
+}
+
+a:hover {
+    color: #ffffffda;
+}
+
+.rightside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+#profilebtn {
+    all: unset;
+}
+
+.profilepicture {
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+    flex-direction: column;
+    width: fit-content;
+    min-width: 150px;
+    border: #ffffff1a 1px solid;
+    border-radius: 4.5px;
+    position: absolute;
+    right: 8px;
+}
+
+.dropdown button i {
+    margin-right: 8px;
+}
+
+.dropdown button {
+    border-radius: 0;
+}
+
+.dropdown button:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.dropdown button:last-child {
+    border-top: #ffffff1a 1px solid;
+    border-radius: 0 0 4px 4px;
+}
+
+input {
+    all: unset;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #ffffff1a;
+    background-color: transparent;
+    color: #fff;
+    transition: background-color 0.15s ease;
+    text-overflow: ellipsis;
+}
+
+input:hover {
+    background-color: #ffffff1a;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000b3;
+}
+
+.modal-content {
+    padding: 16px;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    background-color: #000;
+    border: #1a1a1a 1px solid;
+}
+
+.user-info {
+    position: absolute;
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.settings-switches {
+    display: flex;
+    gap: 1em;
+}
+
+#beta {
+    background-color: #ffffff1a;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-checkbox::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 2px;
+    opacity: 0;
+}
+
+.input[type="checkbox"]:checked+.custom-checkbox::after {
+    opacity: 1;
+}
+
+.close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+#modalUsername {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+#modalProfilePicture {
+    border-radius: 6px;
+    border: #ffffff1a 1px solid;
+    padding: 4px;
+}
+
+.recently-added {
+    margin: 32px;
+    width: fit-content;
+}
+
+.recently-added .title {
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.recent-song-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 10px;
+    max-width: 300px;
+    border-radius: 6px;
+}
+
+.song-image {
+    width: 80px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 16px;
+}
+
+.content-wrapper {
+    flex-grow: 1;
+    margin-right: 16px;
+}
+
+.song-title,
+.artist-name {
+    margin-bottom: 8px;
+}
+
+.artist-name {
+    color: #afafaf;
+}
+
+.play-button {
+    all: unset;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 32px;
+    margin-right: 8px;
+    padding: 4px;
+    transition: color .25s ease;
+}
+
+.play-button:hover {
+    background-color: transparent;
+    color: #afafaf;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ffffff1a;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #ffffff2d;
+}
