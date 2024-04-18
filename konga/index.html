@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <title>Document</title>
 </head>
 <style>
@@ -21,6 +25,7 @@
         height: 100vh;
         width: 100vw;
         overflow: hidden;
+        font-family: 'Rubik', sans-serif;
     }
 
     button {
@@ -32,6 +37,52 @@
         border-radius: 8px;
         cursor: pointer;
         transition: transform .5s ease;
+    }
+
+    @keyframes goThroughColors {
+        10% {
+            background-color: lime;
+        }
+
+        20% {
+            background-color: green;
+        }
+
+        30% {
+            background-color: yellow;
+        }
+
+        40% {
+            background-color: orange;
+        }
+
+        50% {
+            background-color: red;
+        }
+
+        60% {
+            background-color: blue;
+        }
+
+        70% {
+            background-color: purple;
+        }
+
+        80% {
+            background-color: aqua;
+        }
+
+        90% {
+            background-color: brown;
+        }
+
+        100% {
+            background-color: orangered;
+        }
+    }
+
+    button:hover {
+        animation: goThroughColors 2s ease-in forwards infinite;
     }
 
     .rainElem {
@@ -68,37 +119,120 @@
 
     #hiddenDitto {
         position: absolute;
-        bottom: -32px;
-        left: -32px;
+        bottom: -16px;
+        left: -16px;
         width: 100px;
+        transition: left .25s ease, bottom .25s ease, transform .25s ease;
+    }
+
+    #hiddenDitto:hover {
+        transform: scale(1.5);
+        bottom: 24px;
+        left: 24px;
+        animation: goThroughColors 1s ease-in forwards infinite;
+    }
+
+    #scroll-container {
+        background-color: #ff0000;
+        color: #fff;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    #scroll-text {
+        transform: translateX(100%);
+
+        animation: scrollingText 20s linear infinite;
+    }
+
+    @keyframes scrollingText {
+        from {
+            -webkit-transform: translateX(100%);
+        }
+
+        to {
+            -webkit-transform: translateX(-100%);
+        }
+    }
+
+    #airHorn {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 128px;
+        cursor: pointer;
+        transition: transform .25s ease-in-out;
+    }
+
+    #airHorn:hover {
+        transform: scale(1.2);
+    }
+
+    #airHorn:active {
+        transform: scale(0.8);
+    }
+
+    * {
+        user-select: none;
     }
 </style>
 
-<body>
-    <audio src="konga.mp3" loop></audio>
-</body>
+<body></body>
 <script>
     $(document).ready(function () {
         $("body").empty();
 
         $("body").append(`
-            <button>konga</button>
+            <button>epic konga</button>
             <img src="ditto.gif" id="hiddenDitto">
         `);
     });
+
+    var airHornPlaying;
+
+    $(document).on("click", "#airHorn", function () {
+        if (airHornPlaying !== true) {
+            airHornPlaying = true;
+            var audio = new Audio('airhorn.mp3');
+            audio.play();
+            setTimeout(() => { airHornPlaying = false; }, 1500);
+        }
+    });
+
 
     $(document).on("click", "button", function () {
         console.log("Starting...");
 
         var audio = new Audio('konga.mp3');
+        audio.loop = true;
         audio.play();
+
+        airHornPlaying = false;
 
         $("body").empty();
 
         $("body").append(`
-                <img src="ditto.gif" style="z-index:999;">
-                <div id="rain"></div>
+            <img src="ditto.gif" style="z-index:999;">
+            <img src="horn.png" id="airHorn">
+            <div id="rain"></div>
+            <div id="scroll-container">
+                <div id="scroll-text"><div>
+            </div>
         `);
+
+        news();
+
+        function news() {
+            const news = ["Come on, shake your body baby, do the conga", "I know you can't control yourself any longer", "Come on, shake your body baby, do the conga", "I know you can't control yourself any longer", "Feel the rhythm of the music getting stronger", "Don't you fight it till you've tried it do the conga beat", "Everybody gather 'round now", "Let your body feel the heat", "Don't you worry if you can't dance", "Let the music move your feet", "It's the rhythm of the island", "And like sugarcane, so sweet", "If you want to do the conga", "You've got to listen to the beat", "Feel the fire of desire", "As you dance the night away", "'Cos tonight we're gonna party", "Till we see the break of day", "Better get yourself together", "And hold on to what you got", "Once the music hits your system", "There's no way you're gonna stop", "Come on, shake your body baby, do the conga"];
+
+            var randNewsText = news[Math.floor(Math.random() * news.length)];
+
+            $("#scroll-text").text("");
+
+            $("#scroll-text").text(randNewsText);
+        }
 
         function changeColor() {
             const hex = '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
@@ -124,6 +258,7 @@
 
         var interval = self.setInterval(function () { changeColor() }, 500);
         var interval2 = self.setInterval(function () { rain() }, 100);
+        var interval2 = self.setInterval(function () { news() }, 15000);
     });
 </script>
 
