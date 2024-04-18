@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body,
+    html {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    button {
+        all: unset;
+        background-color: #ad17ad;
+        color: #fff;
+        padding: 24px 32px;
+        font-size: 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform .5s ease;
+    }
+
+    .rainElem {
+        position: absolute;
+        top: -30px;
+        width: 48px;
+        height: 48px;
+        background-image: url('ditto.gif');
+        background-size: cover;
+        animation: fall 2s linear, fade-out 0.5s linear 1.5s forwards, rotate 2s linear;
+    }
+
+    @keyframes fall {
+        to {
+            top: 100%;
+        }
+    }
+
+    @keyframes fade-out {
+        to {
+            opacity: 0;
+        }
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #hiddenDitto {
+        position: absolute;
+        bottom: -32px;
+        left: -32px;
+        width: 100px;
+    }
+</style>
+
+<body>
+    <audio src="konga.mp3" loop></audio>
+</body>
+<script>
+    $(document).ready(function () {
+        $("body").empty();
+
+        $("body").append(`
+            <button>konga</button>
+            <img src="ditto.gif" id="hiddenDitto">
+        `);
+    });
+
+    $(document).on("click", "button", function () {
+        console.log("Starting...");
+
+        var audio = new Audio('konga.mp3');
+        audio.play();
+
+        $("body").empty();
+
+        $("body").append(`
+                <img src="ditto.gif" style="z-index:999;">
+                <div id="rain"></div>
+        `);
+
+        function changeColor() {
+            const hex = '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+
+            $("body").css("background-color", hex);
+        }
+
+        function rain() {
+            const rainElement = document.createElement('div');
+            rainElement.className = 'rainElem';
+            document.getElementById('rain').appendChild(rainElement);
+
+            const randomX = Math.random() * window.innerWidth;
+            rainElement.style.left = randomX + "px";
+
+            const randomRotation = Math.random() * 360;
+            rainElement.style.transform = `rotate(${randomRotation}deg)`;
+
+            rainElement.addEventListener('animationend', () => {
+                rainElement.remove();
+            });
+        }
+
+        var interval = self.setInterval(function () { changeColor() }, 500);
+        var interval2 = self.setInterval(function () { rain() }, 100);
+    });
+</script>
+
+</html>
