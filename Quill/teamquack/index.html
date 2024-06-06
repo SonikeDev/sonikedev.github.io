@@ -102,7 +102,7 @@
     <div id="chat">
         <ul id="messages">
             <li>
-                <h1>Team Quack</h1>
+                <h1>Slay Girl</h1>
             </li>
         </ul>
         <form id="send-message">
@@ -114,9 +114,6 @@
     const onlineUsersRef = firebase.database().ref(".info/connected");
     const usersRef = firebase.database().ref("users");
     const currentUserRef = usersRef.child(localStorage.getItem("username"));
-
-    // Request permission for notifications
-    Notification.requestPermission();
 
     onlineUsersRef.on("value", function (snapshot) {
         if (snapshot.val()) {
@@ -137,10 +134,10 @@
     });
 
     const password = "2011";
-    const username = localStorage.getItem("username");
-    if (username === null) {
+    const username = localStorage.getItem('username');
+    if (!username) {
         const name = prompt("What's your name?");
-        localStorage.setItem("username", name);
+        localStorage.setItem('username', name);
     }
 
     function scrollBottom() {
@@ -148,7 +145,7 @@
     }
 
     const checkLogin = function () {
-        const enteredPassword = prompt("Enter the password to view the chat");
+        const enteredPassword = prompt("Enter the password bitch");
         if (enteredPassword === password) {
             isLoggedIn = true;
         } else {
@@ -175,12 +172,12 @@
             let length = message.length;
 
             if (length > 200) {
+                alert("du skrev for meget idiet")
                 return;
             }
 
-            // detect links and replace with anchor tags
-            const urlRegex = /(https?:\/\/[^\s]+)/g;
-            message = message.replace(urlRegex, '<a href="$1" target="_blank" id="messageLink" tabindex="-1">$1</a>');
+            // const urlRegex = /(https?:\/\/[^\s]+)/g;
+            // message = message.replace(urlRegex, '<a href="$1" target="_blank" id="messageLink" tabindex="-1">$1</a>');
 
             db.ref("messages/" + timestamp).set({
                 usr: username,
@@ -188,33 +185,21 @@
             });
             chatTxt.value = "";
             scrollBottom();
-
-            // Show a notification if user is not on the website
-            if (document.visibilityState === "hidden" && Notification.permission === "granted") {
-                const notification = new Notification("New message received", {
-                    body: message,
-                });
-            }
         };
 
         document.getElementById("send-message").addEventListener("submit", postChat);
 
         const messagesList = document.getElementById("messages");
-        const fetchChat = db.ref("messages/");
+        const fetchChat = db.ref("messages/").limit(100);
         fetchChat.on("child_added", function (snapshot) {
             const messages = snapshot.val();
             const msg = "<li>" + "<strong>" + messages.usr + "</strong>" + "<strong>:</strong> " + messages.msg + "</li>";
             messagesList.innerHTML += msg;
             messagesList.scrollTop = messagesList.scrollHeight;
             scrollBottom();
-
-            // Show a notification if user is not on the website
-            if (document.visibilityState === "hidden" && Notification.permission === "granted") {
-                const notification = new Notification("New message received", {
-                    body: messages.msg,
-                });
-            }
         });
+    } else {
+        alert("bitch du ik logget ind")
     }
 </script>
 
