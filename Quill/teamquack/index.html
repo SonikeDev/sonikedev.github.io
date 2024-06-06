@@ -190,7 +190,7 @@
         document.getElementById("send-message").addEventListener("submit", postChat);
 
         const messagesList = document.getElementById("messages");
-        const fetchChat = db.ref("messages/").limit(100);
+        const fetchChat = db.ref("messages/").limit(50);
         fetchChat.on("child_added", function (snapshot) {
             const messages = snapshot.val();
             const msg = "<li>" + "<strong>" + messages.usr + "</strong>" + "<strong>:</strong> " + messages.msg + "</li>";
